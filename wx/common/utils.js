@@ -12,19 +12,20 @@ class utils{
     }
   }
 
-  $deepCopy(obj1,obj2={}){
-    for(let i in obj1){
-      if(obj1.hasOwnProperty(i)){
-        if(Array.isArray(obj1[i])){
+  $deepCopy(obj){
+    let obj2 = {};
+    for(let i in obj){
+      if(obj.hasOwnProperty(i)){
+        if(Array.isArray(obj[i])){
           obj2[i]=[];
-          this.$deepCopy(obj1[i],obj2[i]);
-        }else if(typeof obj1[i]==="function"){
-          obj2[i]=obj1[i];
-        }else if(obj1[i] instanceof Object){
+          this.$deepCopy(obj[i],obj2[i]);
+        }else if(typeof obj[i]==="function"){
+          obj2[i]=obj[i];
+        }else if(obj[i] instanceof Object){
           obj2[i]={};
-          this.$deepCopy(obj1[i],obj2[i]);
+          this.$deepCopy(obj[i],obj2[i]);
         }else{
-          obj2[i]=obj1[i];
+          obj2[i]=obj[i];
         }
       }
     }
