@@ -4,30 +4,27 @@ const fileUtil = require("./utils/fileUtil")
 const fs = require("fs")
 const cheerio = require("cheerio");
 
-const miniAppFilesInfo = {
-    project_path: "/Users/didi/IdeaProjects/passenger-client/dist/wx",
+let project_path = "/Users/didi/IdeaProjects/passenger-client/dist/wx";
+
+function _getAppJson() {
+    return fileUtil.read(path.join(project_path,"app.json"));
+}
+
+const miniAppInfos = {
     page_file_types: ["wxml","wxss","js","json"],
-    _getAppJsonPromise: function () {
-        return fileUtil.read(path.join(this.project_path,"app.json"));
+    setProjectPath: function (p){
+        project_path = p;
     },
     getPageFilesByType: function (fileType,callback){
-        this._getAppJsonPromise().then((res) => {
-            let appJson = JSON.parse(res);
-            let resObj = {}
-            appJson["pages"].forEach((item) => {
-                let obj = {};
-                let currentPath = path.join(this.project_path,util.subStringByTagAndIndex(item));
-                let files = fs.readdirSync(currentPath).map(file => path.join(currentPath,file));
-                resObj[item] = util.getStrFromArrayByTag(files,fileType);
-            })
-            callback(resObj);
+        let appJson = JSON.parse(_getAppJson());
+        let resObj = {}
+        appJson["pages"].forEach((item) => {
+            let currentPath = path.join(project_path,fileUtil.abs(util.subStringByTagAndIndex(item)));
+            let files = fs.readdirSync(currentPath).map(file => path.join(currentPath,file));
+            resObj[item] = util.getStrFromArrayByTag(files,fileType);
         })
+        callback(resObj);
     }
 }
 
-miniAppFilesInfo.getPageFilesByType("wxml",(resObj) => {
-    fileUtil.read(resObj["pages/index/index"]).then((res) =>{
-        let ce = cheerio.load(res);
-        console.log(ce("view").attr("style"));
-    })
-});
+module.exports = miniAppInfos;

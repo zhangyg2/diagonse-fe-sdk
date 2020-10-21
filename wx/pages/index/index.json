@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "home":"../../components/index/home"
+  }
+}

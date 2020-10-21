@@ -37,6 +37,14 @@ class util{
         }
         return res;
     }
+
+    $count(str,subStr){
+        if(str && !(str.indexOf(subStr) === -1)){
+            return str.split(subStr).length -1;
+        }else{
+            return 0;
+        }
+    }
 }
 
 module.exports = new util()
