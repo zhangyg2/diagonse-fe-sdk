@@ -1,4 +1,4 @@
-import utils from './common/utils';
+import utils from './common/wxUtils';
 
 const $init = function() {
   let oldComponent = Component;
