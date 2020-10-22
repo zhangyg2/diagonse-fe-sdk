@@ -1,5 +1,5 @@
-import pageHandler from "./handlers/pageHandler";
-import utils from "./common/wxUtils";
+import pageHandler from "../handlers/pageHandler";
+import utils from "../../tools";
 
 const $init = function() {
   let oldPage = Page;

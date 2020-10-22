@@ -1,4 +1,4 @@
-import utils from "../common/wxUtils";
+import utils from "../../tools";
 import nodesHandler from "./nodesHandler";
 
 function $currentPage(){

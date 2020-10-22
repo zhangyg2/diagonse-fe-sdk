@@ -1,4 +1,4 @@
-import utils from "../common/wxUtils"
+import utils from "../../tools"
 
 function selectorQueryDelay(currentObj,callback,clearTimeout=200){
   setTimeout(() => {
